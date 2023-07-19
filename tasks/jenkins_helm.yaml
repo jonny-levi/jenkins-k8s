@@ -13,3 +13,9 @@
 
 - name: Install helm
   ansible.builtin.shell: bash /tmp/get_helm.sh
+
+- name: Add Helm repository
+  kubernetes.core.helm_repository:
+    name: jenkinsci
+    repo_url: https://charts.jenkins.io
+    update_repo_cache: true
