@@ -4,5 +4,12 @@
     dest: /tmp/get_helm.sh
     mode: "0700"
 
+- name: Install required packages
+  ansible.builtin.apt:
+    pkg:
+      - wget
+      - curl
+      - net-tools
+
 - name: Install helm
   ansible.builtin.shell: sh /tmp/get_helm.sh
