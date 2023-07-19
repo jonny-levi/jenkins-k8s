@@ -1,0 +1,8 @@
+- name: Download Helm
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get_helm.sh
+    mode: "0700"
+
+- name: Install helm
+  ansible.builtin.shell: ./tmp/get_helm.sh

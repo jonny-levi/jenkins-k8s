@@ -1,0 +1,40 @@
+- name: Clone Jenkins repo to tmp folder
+  ansible.builtin.git:
+    repo: https://github.com/scriptcamp/kubernetes-jenkins
+    dest: /tmp
+
+- name: Create namespace in k8s cluster - devops-tools
+  ansible.builtin.shell: kubectl create namespace devops-tools
+
+- name: Creating service account
+  ansible.builtin.shell: kubectl apply -f /tmp/kubernetes-jenkins/serviceAccount.yaml
+
+- name: Insert worker_node01 to the volume file
+  ansible.builtin.replace:
+    path: /tmp/kubernetes-jenkins/volume.yaml
+    regexp: '(worker)-(\w+)01'
+    replace: '\1_\201'
+    backup: yes
+
+- name: Creating local volume
+  ansible.builtin.shell: kubectl apply -f /tmp/kubernetes-jenkins/volume.yaml
+
+- name: Create Jenkins deployment
+  ansible.builtin.shell: kubectl apply -f /tmp/kubernetes-jenkins/deployment.yaml
+
+- name: Creating Jenkins Service
+  ansible.builtin.shell: /tmp/kubernetes-jenkins/service.yaml
+
+- name: Get the initial Admin Passowrd
+  ansible.builtin.shell: kubectl get pods --namespace=devops-tools
+  register: jenkins_admin_password
+
+- name: Print the initial Jenkins admin password
+  ansible.builtin.debug:
+    var: jenkins_admin_password
+
+- name:
+  ansible.builtin.shell:
+
+- name:
+  ansible.builtin.shell:
