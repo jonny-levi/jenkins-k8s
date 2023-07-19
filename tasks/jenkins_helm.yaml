@@ -12,4 +12,4 @@
       - net-tools
 
 - name: Install helm
-  ansible.builtin.shell: . /tmp/get_helm.sh
+  ansible.builtin.shell: bash /tmp/get_helm.sh
