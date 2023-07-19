@@ -5,4 +5,4 @@
     mode: "0700"
 
 - name: Install helm
-  ansible.builtin.shell: ./tmp/get_helm.sh
+  ansible.builtin.shell: sh /tmp/get_helm.sh
