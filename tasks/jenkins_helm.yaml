@@ -11,6 +11,12 @@
       - curl
       - net-tools
 
+- name: install pre-requisites
+  pip:
+    name:
+      - pyyaml
+      - kubernetes
+
 - name: Install helm
   ansible.builtin.shell: bash /tmp/get_helm.sh
 
