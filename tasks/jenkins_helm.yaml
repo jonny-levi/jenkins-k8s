@@ -18,4 +18,16 @@
   kubernetes.core.helm_repository:
     name: jenkinsci
     repo_url: https://charts.jenkins.io
-    update_repo_cache: true
+
+- name: Update Helm repo
+  ansible.builtin.shell: helm repo update
+
+- name: Creating jenkins volume
+  kubernetes.core.k8s:
+    state: present
+    src: https://raw.githubusercontent.com/installing-jenkins-on-kubernetes/jenkins-volume.yaml
+
+- name: Creating jenkins service
+  kubernetes.core.k8s:
+    state: present
+    src: https://raw.githubusercontent.com/installing-jenkins-on-kubernetes/jenkins-sa.yaml
