@@ -61,3 +61,33 @@
     state: present
     src: /tmp/jenkins-sa.yaml
   become_user: jonathan
+
+- name: Download jenkins values manifest to the cluster.
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/jenkinsci/helm-charts/main/charts/jenkins/values.yaml
+    dest: /tmp/values.yaml
+    mode: "0664"
+
+- name: Creating jenkins values
+  kubernetes.core.k8s:
+    state: present
+    src: /tmp/values.yaml
+  become_user: jonathan
+
+- name: Install Jenkins using Helm charts
+  ansible.builtin.shell: |
+    chart=jenkinsci/jenkins
+    helm install jenkins -n jenkins -f jenkins-values.yaml $chart
+  become_user: jonathan
+
+- name: Register admin password
+  ansible.builtin.shell: |
+    jsonpath="{.data.jenkins-admin-password}" 
+    secret=$(kubectl get secret -n jenkins jenkins -o jsonpath=$jsonpath)
+    echo $(echo $secret | base64 --decode)
+  become_user: jonathan
+  register: admin_password
+
+- name: Print admin password
+  ansible.builtin.debug:
+    var: admin_password
