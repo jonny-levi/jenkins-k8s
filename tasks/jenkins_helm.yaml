@@ -30,6 +30,13 @@
 - name: Update Helm repo
   ansible.builtin.shell: helm repo update
 
+- name: Create jenkins namespace
+  kubernetes.core.k8s:
+    name: testing
+    api_version: v1
+    kind: Namespace
+    state: present
+
 - name: Download jenkins volume manifest to the cluster.
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/jenkins-infra/jenkins.io/master/content/doc/tutorials/kubernetes/installing-jenkins-on-kubernetes/jenkins-volume.yaml
