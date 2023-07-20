@@ -68,16 +68,16 @@
     dest: /tmp/values.yaml
     mode: "0664"
 
-- name: Creating jenkins values
-  kubernetes.core.k8s:
-    state: present
-    src: /tmp/values.yaml
-  become_user: jonathan
+# - name: Creating jenkins values
+#   kubernetes.core.k8s:
+#     state: present
+#     src: /tmp/values.yaml
+#   become_user: jonathan
 
 - name: Install Jenkins using Helm charts
   ansible.builtin.shell: |
     chart=jenkinsci/jenkins
-    helm install jenkins -n jenkins -f jenkins-values.yaml $chart
+    helm install jenkins -n jenkins -f /tmp/values.yaml $chart
   become_user: jonathan
 
 - name: Register admin password
