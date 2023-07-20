@@ -36,6 +36,7 @@
     api_version: v1
     kind: Namespace
     state: present
+  become_user: jonathan
 
 - name: Download jenkins volume manifest to the cluster.
   ansible.builtin.get_url:
