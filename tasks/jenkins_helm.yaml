@@ -44,7 +44,7 @@
 
 - name: Download jenkins service manifest to the cluster.
   ansible.builtin.get_url:
-    url: raw.githubusercontent.com/jenkins-infra/jenkins.io/master/content/doc/tutorials/kubernetes/installing-jenkins-on-kubernetes/jenkins-sa.yaml
+    url: https://raw.githubusercontent.com/jenkins-infra/jenkins.io/master/content/doc/tutorials/kubernetes/installing-jenkins-on-kubernetes/jenkins-sa.yaml
     dest: /tmp/jenkins-sa.yaml
     mode: "0664"
 
