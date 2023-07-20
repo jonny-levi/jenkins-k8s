@@ -34,8 +34,10 @@
   kubernetes.core.k8s:
     state: present
     src: https://raw.githubusercontent.com/installing-jenkins-on-kubernetes/jenkins-volume.yaml
+  become_user: jonathan
 
 - name: Creating jenkins service
   kubernetes.core.k8s:
     state: present
     src: https://raw.githubusercontent.com/installing-jenkins-on-kubernetes/jenkins-sa.yaml
+  become_user: jonathan
